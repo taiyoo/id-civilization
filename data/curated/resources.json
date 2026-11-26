@@ -1,0 +1,956 @@
+{
+ "_about": "Hand-curated real-world sites. Coordinates are approximate (within ~10 km, i.e. inside the right hex). Each entry is a known mine, field, plantation district or production centre.",
+ "resources": [
+  {
+   "r": "copper",
+   "lat": -4.053,
+   "lon": 137.116,
+   "site": "Grasberg mine (Freeport), Mimika"
+  },
+  {
+   "r": "gold",
+   "lat": -4.1,
+   "lon": 137.25,
+   "site": "Grasberg / Ertsberg district, Mimika"
+  },
+  {
+   "r": "copper",
+   "lat": -8.967,
+   "lon": 116.875,
+   "site": "Batu Hijau mine, Sumbawa"
+  },
+  {
+   "r": "gold",
+   "lat": -9.05,
+   "lon": 117.0,
+   "site": "Elang prospect / Batu Hijau district, Sumbawa"
+  },
+  {
+   "r": "gold",
+   "lat": 1.52,
+   "lon": 99.06,
+   "site": "Martabe gold mine, South Tapanuli"
+  },
+  {
+   "r": "gold",
+   "lat": -6.65,
+   "lon": 106.56,
+   "site": "Pongkor gold mine (Antam), Bogor"
+  },
+  {
+   "r": "gold",
+   "lat": 1.03,
+   "lon": 127.9,
+   "site": "Gosowong gold mine, Halmahera"
+  },
+  {
+   "r": "gold",
+   "lat": -8.6,
+   "lon": 114.07,
+   "site": "Tujuh Bukit gold mine, Banyuwangi"
+  },
+  {
+   "r": "nickel",
+   "lat": -2.53,
+   "lon": 121.36,
+   "site": "Sorowako nickel (Vale), East Luwu"
+  },
+  {
+   "r": "nickel",
+   "lat": -2.82,
+   "lon": 122.15,
+   "site": "Morowali industrial park (IMIP)"
+  },
+  {
+   "r": "nickel",
+   "lat": 0.47,
+   "lon": 127.95,
+   "site": "Weda Bay nickel (IWIP), Central Halmahera"
+  },
+  {
+   "r": "nickel",
+   "lat": -4.18,
+   "lon": 121.62,
+   "site": "Pomalaa nickel (Antam), Kolaka"
+  },
+  {
+   "r": "nickel",
+   "lat": -1.55,
+   "lon": 127.65,
+   "site": "Obi Island nickel (Harita)"
+  },
+  {
+   "r": "nickel",
+   "lat": -3.95,
+   "lon": 122.4,
+   "site": "Konawe nickel smelters"
+  },
+  {
+   "r": "nickel",
+   "lat": -0.4,
+   "lon": 129.9,
+   "site": "Gag Island nickel, Raja Ampat"
+  },
+  {
+   "r": "tin",
+   "lat": -2.1,
+   "lon": 106.1,
+   "site": "Bangka tin fields (PT Timah)"
+  },
+  {
+   "r": "tin",
+   "lat": -2.85,
+   "lon": 107.9,
+   "site": "Belitung tin fields"
+  },
+  {
+   "r": "tin",
+   "lat": -0.5,
+   "lon": 104.45,
+   "site": "Singkep tin (historic)"
+  },
+  {
+   "r": "bauxite",
+   "lat": 1.05,
+   "lon": 104.5,
+   "site": "Bintan bauxite (historic)"
+  },
+  {
+   "r": "bauxite",
+   "lat": -0.03,
+   "lon": 110.1,
+   "site": "Tayan bauxite / alumina, Sanggau"
+  },
+  {
+   "r": "coal",
+   "lat": 0.52,
+   "lon": 117.55,
+   "site": "Kaltim Prima Coal, Sangatta"
+  },
+  {
+   "r": "coal",
+   "lat": 2.1,
+   "lon": 117.4,
+   "site": "Berau Coal"
+  },
+  {
+   "r": "coal",
+   "lat": -2.2,
+   "lon": 115.45,
+   "site": "Adaro mines, Tabalong"
+  },
+  {
+   "r": "coal",
+   "lat": -1.9,
+   "lon": 116.1,
+   "site": "Kideco, Paser"
+  },
+  {
+   "r": "coal",
+   "lat": -3.75,
+   "lon": 103.8,
+   "site": "Bukit Asam, Tanjung Enim"
+  },
+  {
+   "r": "coal",
+   "lat": -0.68,
+   "lon": 100.78,
+   "site": "Ombilin coal, Sawahlunto (historic)"
+  },
+  {
+   "r": "coal",
+   "lat": -3.4,
+   "lon": 115.6,
+   "site": "Arutmin / Satui, Tanah Bumbu"
+  },
+  {
+   "r": "oil",
+   "lat": 0.75,
+   "lon": 101.45,
+   "site": "Minas field, Rokan block"
+  },
+  {
+   "r": "oil",
+   "lat": 1.27,
+   "lon": 101.2,
+   "site": "Duri steamflood field, Rokan block"
+  },
+  {
+   "r": "oil",
+   "lat": -7.1,
+   "lon": 111.8,
+   "site": "Banyu Urip, Cepu block"
+  },
+  {
+   "r": "oil",
+   "lat": -1.25,
+   "lon": 116.85,
+   "site": "Balikpapan refinery and fields"
+  },
+  {
+   "r": "oil",
+   "lat": -2.95,
+   "lon": 104.2,
+   "site": "South Sumatra fields, Musi Banyuasin"
+  },
+  {
+   "r": "oil",
+   "lat": -6.1,
+   "lon": 107.7,
+   "site": "Offshore North West Java (ONWJ)"
+  },
+  {
+   "r": "gas",
+   "lat": -0.6,
+   "lon": 117.4,
+   "site": "Mahakam delta gas fields"
+  },
+  {
+   "r": "gas",
+   "lat": 0.13,
+   "lon": 117.48,
+   "site": "Bontang LNG"
+  },
+  {
+   "r": "gas",
+   "lat": -2.45,
+   "lon": 133.1,
+   "site": "Tangguh LNG, Bintuni Bay"
+  },
+  {
+   "r": "gas",
+   "lat": 5.2,
+   "lon": 97.1,
+   "site": "Arun gas field, Lhokseumawe"
+  },
+  {
+   "r": "gas",
+   "lat": 4.0,
+   "lon": 108.3,
+   "site": "Natuna Sea gas (offshore)"
+  },
+  {
+   "r": "gas",
+   "lat": -9.1,
+   "lon": 130.3,
+   "site": "Abadi field, Masela block (offshore)"
+  },
+  {
+   "r": "nutmeg",
+   "lat": -4.52,
+   "lon": 129.9,
+   "site": "Banda Islands, the original Spice Islands"
+  },
+  {
+   "r": "cloves",
+   "lat": 0.8,
+   "lon": 127.33,
+   "site": "Ternate (clove origin)"
+  },
+  {
+   "r": "cloves",
+   "lat": 0.68,
+   "lon": 127.4,
+   "site": "Tidore"
+  },
+  {
+   "r": "cloves",
+   "lat": -3.69,
+   "lon": 128.18,
+   "site": "Ambon"
+  },
+  {
+   "r": "pepper",
+   "lat": -5.0,
+   "lon": 105.2,
+   "site": "Lampung black pepper"
+  },
+  {
+   "r": "pepper",
+   "lat": -2.06,
+   "lon": 105.17,
+   "site": "Muntok white pepper, Bangka"
+  },
+  {
+   "r": "cinnamon",
+   "lat": -1.7,
+   "lon": 101.3,
+   "site": "Kerinci cassia cinnamon"
+  },
+  {
+   "r": "coffee",
+   "lat": 4.6,
+   "lon": 96.85,
+   "site": "Gayo highlands arabica"
+  },
+  {
+   "r": "coffee",
+   "lat": 2.3,
+   "lon": 98.95,
+   "site": "Lintong / Mandheling, North Sumatra"
+  },
+  {
+   "r": "coffee",
+   "lat": -3.0,
+   "lon": 119.85,
+   "site": "Toraja arabica"
+  },
+  {
+   "r": "coffee",
+   "lat": -8.25,
+   "lon": 115.33,
+   "site": "Kintamani, Bali"
+  },
+  {
+   "r": "coffee",
+   "lat": -7.95,
+   "lon": 114.05,
+   "site": "Ijen plateau Java arabica"
+  },
+  {
+   "r": "coffee",
+   "lat": -8.8,
+   "lon": 120.98,
+   "site": "Bajawa, Flores"
+  },
+  {
+   "r": "coffee",
+   "lat": -4.1,
+   "lon": 138.95,
+   "site": "Baliem Valley arabica, Wamena"
+  },
+  {
+   "r": "tea",
+   "lat": -6.7,
+   "lon": 106.98,
+   "site": "Puncak / Gunung Mas tea estates"
+  },
+  {
+   "r": "tea",
+   "lat": -7.2,
+   "lon": 107.57,
+   "site": "Malabar estate, Pangalengan"
+  },
+  {
+   "r": "tea",
+   "lat": -1.75,
+   "lon": 101.25,
+   "site": "Kayu Aro estate, Kerinci"
+  },
+  {
+   "r": "cocoa",
+   "lat": -2.6,
+   "lon": 120.3,
+   "site": "Luwu cocoa belt"
+  },
+  {
+   "r": "cocoa",
+   "lat": -1.2,
+   "lon": 120.1,
+   "site": "Parigi Moutong cocoa"
+  },
+  {
+   "r": "sugar",
+   "lat": -7.82,
+   "lon": 112.01,
+   "site": "Kediri sugar mills"
+  },
+  {
+   "r": "sugar",
+   "lat": -4.6,
+   "lon": 105.3,
+   "site": "Gunung Madu plantations, Lampung"
+  },
+  {
+   "r": "tobacco",
+   "lat": 3.6,
+   "lon": 98.7,
+   "site": "Deli wrapper tobacco"
+  },
+  {
+   "r": "tobacco",
+   "lat": -7.3,
+   "lon": 110.17,
+   "site": "Temanggung tobacco"
+  },
+  {
+   "r": "tobacco",
+   "lat": -8.17,
+   "lon": 113.7,
+   "site": "Jember cigar tobacco"
+  },
+  {
+   "r": "rubber",
+   "lat": -3.0,
+   "lon": 104.0,
+   "site": "South Sumatra smallholder rubber"
+  },
+  {
+   "r": "rubber",
+   "lat": -1.6,
+   "lon": 103.6,
+   "site": "Jambi rubber"
+  },
+  {
+   "r": "sandalwood",
+   "lat": -9.65,
+   "lon": 120.25,
+   "site": "Sumba sandalwood"
+  },
+  {
+   "r": "sandalwood",
+   "lat": -9.7,
+   "lon": 124.3,
+   "site": "West Timor sandalwood"
+  },
+  {
+   "r": "pearls",
+   "lat": -6.2,
+   "lon": 134.5,
+   "site": "Aru Islands pearl beds"
+  },
+  {
+   "r": "pearls",
+   "lat": -8.4,
+   "lon": 116.05,
+   "site": "Lombok South Sea pearls"
+  },
+  {
+   "r": "horses",
+   "lat": -9.6,
+   "lon": 119.9,
+   "site": "Sumba (sandalwood) horses"
+  },
+  {
+   "r": "horses",
+   "lat": -8.7,
+   "lon": 117.4,
+   "site": "Sumbawa horses"
+  },
+  {
+   "r": "cattle",
+   "lat": -7.05,
+   "lon": 113.4,
+   "site": "Madura cattle"
+  },
+  {
+   "r": "cattle",
+   "lat": -8.35,
+   "lon": 115.15,
+   "site": "Bali cattle"
+  },
+  {
+   "r": "salt",
+   "lat": -7.15,
+   "lon": 113.25,
+   "site": "Madura salt pans"
+  },
+  {
+   "r": "fish",
+   "lat": 1.44,
+   "lon": 125.25,
+   "site": "Bitung tuna port"
+  },
+  {
+   "r": "fish",
+   "lat": -3.75,
+   "lon": 128.05,
+   "site": "Ambon fisheries"
+  },
+  {
+   "r": "fish",
+   "lat": -5.6,
+   "lon": 132.7,
+   "site": "Tual / Kei Islands fisheries"
+  },
+  {
+   "r": "fish",
+   "lat": -6.1,
+   "lon": 106.8,
+   "site": "Muara Baru fishing port, Jakarta"
+  },
+  {
+   "r": "fish",
+   "lat": 3.8,
+   "lon": 98.7,
+   "site": "Belawan fishing port"
+  },
+  {
+   "r": "crabs",
+   "lat": -0.95,
+   "lon": 119.85,
+   "site": "Palu Bay"
+  },
+  {
+   "r": "whales",
+   "lat": -8.4,
+   "lon": 123.4,
+   "site": "Lamalera traditional whaling, Lembata"
+  }
+ ],
+ "regional": [
+  {
+   "r": "palm_oil",
+   "provinces": [
+    "Riau",
+    "Central Kalimantan",
+    "West Kalimantan",
+    "North Sumatra",
+    "South Sumatra",
+    "East Kalimantan",
+    "Jambi"
+   ],
+   "maxElev": 200,
+   "every": 8,
+   "minFarm": 0.3,
+   "note": "Top palm-oil producing provinces (BPS)"
+  },
+  {
+   "r": "rice",
+   "provinces": [
+    "East Java",
+    "Central Java",
+    "West Java",
+    "Special Region of Yogyakarta",
+    "Banten",
+    "Bali",
+    "West Nusa Tenggara",
+    "South Sulawesi",
+    "Lampung"
+   ],
+   "maxElev": 400,
+   "every": 4,
+   "minFarm": 0.4,
+   "note": "Leading rice-producing provinces (BPS)"
+  },
+  {
+   "r": "fish",
+   "provinces": [
+    "Maluku",
+    "North Maluku",
+    "Southeast Sulawesi",
+    "North Sulawesi",
+    "East Nusa Tenggara",
+    "Riau Islands"
+   ],
+   "water": true,
+   "every": 40,
+   "note": "Major capture-fishery provinces (KKP)"
+  }
+ ],
+ "lakes": [
+  {
+   "name": "Lake Towuti",
+   "lat": -2.8,
+   "lon": 121.5,
+   "hexes": 2
+  },
+  {
+   "name": "Lake Poso",
+   "lat": -1.9,
+   "lon": 120.6,
+   "hexes": 1
+  },
+  {
+   "name": "Lake Matano",
+   "lat": -2.48,
+   "lon": 121.33,
+   "hexes": 1
+  },
+  {
+   "name": "Lake Tempe",
+   "lat": -4.1,
+   "lon": 120.0,
+   "hexes": 1
+  },
+  {
+   "name": "Lake Sentani",
+   "lat": -2.62,
+   "lon": 140.5,
+   "hexes": 1
+  },
+  {
+   "name": "Lake Singkarak",
+   "lat": -0.62,
+   "lon": 100.53,
+   "hexes": 1
+  },
+  {
+   "name": "Lake Maninjau",
+   "lat": -0.32,
+   "lon": 100.2,
+   "hexes": 1
+  },
+  {
+   "name": "Lake Ranau",
+   "lat": -4.87,
+   "lon": 103.93,
+   "hexes": 1
+  },
+  {
+   "name": "Lake Paniai",
+   "lat": -3.9,
+   "lon": 136.35,
+   "hexes": 1
+  },
+  {
+   "name": "Danau Sentarum",
+   "lat": 0.85,
+   "lon": 112.1,
+   "hexes": 1
+  },
+  {
+   "name": "Lake Limboto",
+   "lat": 0.57,
+   "lon": 122.95,
+   "hexes": 1
+  },
+  {
+   "name": "Lake Tondano",
+   "lat": 1.25,
+   "lon": 124.9,
+   "hexes": 1
+  },
+  {
+   "name": "Lake Batur",
+   "lat": -8.26,
+   "lon": 115.4,
+   "hexes": 1
+  },
+  {
+   "name": "Lake Kerinci",
+   "lat": -2.13,
+   "lon": 101.48,
+   "hexes": 1
+  }
+ ],
+ "reefs": [
+  {
+   "name": "Raja Ampat",
+   "lat": -0.5,
+   "lon": 130.5,
+   "radius": 2
+  },
+  {
+   "name": "Bunaken",
+   "lat": 1.62,
+   "lon": 124.75,
+   "radius": 1
+  },
+  {
+   "name": "Wakatobi",
+   "lat": -5.5,
+   "lon": 123.8,
+   "radius": 1
+  },
+  {
+   "name": "Taka Bonerate",
+   "lat": -6.8,
+   "lon": 121.1,
+   "radius": 1
+  },
+  {
+   "name": "Komodo",
+   "lat": -8.6,
+   "lon": 119.5,
+   "radius": 1
+  },
+  {
+   "name": "Derawan",
+   "lat": 2.25,
+   "lon": 118.25,
+   "radius": 1
+  },
+  {
+   "name": "Togean Islands",
+   "lat": -0.4,
+   "lon": 122.0,
+   "radius": 1
+  },
+  {
+   "name": "Karimunjawa",
+   "lat": -5.85,
+   "lon": 110.45,
+   "radius": 1
+  },
+  {
+   "name": "Kepulauan Seribu",
+   "lat": -5.7,
+   "lon": 106.55,
+   "radius": 1
+  },
+  {
+   "name": "Banda Sea reefs",
+   "lat": -4.55,
+   "lon": 129.8,
+   "radius": 1
+  },
+  {
+   "name": "Alor",
+   "lat": -8.2,
+   "lon": 124.6,
+   "radius": 1
+  },
+  {
+   "name": "Cenderawasih Bay",
+   "lat": -2.7,
+   "lon": 134.7,
+   "radius": 2
+  },
+  {
+   "name": "Kei Islands",
+   "lat": -5.7,
+   "lon": 132.8,
+   "radius": 1
+  },
+  {
+   "name": "Gili Islands",
+   "lat": -8.35,
+   "lon": 116.05,
+   "radius": 1
+  },
+  {
+   "name": "Lembeh Strait",
+   "lat": 1.45,
+   "lon": 125.25,
+   "radius": 1
+  }
+ ],
+ "geothermal": [
+  {
+   "name": "Kamojang",
+   "lat": -7.13,
+   "lon": 107.79
+  },
+  {
+   "name": "Wayang Windu",
+   "lat": -7.2,
+   "lon": 107.62
+  },
+  {
+   "name": "Salak",
+   "lat": -6.74,
+   "lon": 106.65
+  },
+  {
+   "name": "Dieng",
+   "lat": -7.2,
+   "lon": 109.92
+  },
+  {
+   "name": "Sarulla",
+   "lat": 1.93,
+   "lon": 99.07
+  },
+  {
+   "name": "Ulubelu",
+   "lat": -5.3,
+   "lon": 104.57
+  },
+  {
+   "name": "Lahendong",
+   "lat": 1.27,
+   "lon": 124.83
+  }
+ ],
+ "extraWonders": [
+  {
+   "name": "Puncak Jaya (Carstensz Pyramid)",
+   "lat": -4.078,
+   "lon": 137.158,
+   "kind": "natural",
+   "desc": "Highest peak in Oceania, 4,884 m, with tropical glaciers."
+  },
+  {
+   "name": "Lake Toba",
+   "lat": 2.62,
+   "lon": 98.83,
+   "kind": "natural",
+   "desc": "Largest volcanic lake on Earth, from the ~74,000-year-old Toba supereruption."
+  },
+  {
+   "name": "Mount Bromo",
+   "lat": -7.942,
+   "lon": 112.953,
+   "kind": "natural",
+   "desc": "Active volcano in the Tengger caldera."
+  },
+  {
+   "name": "Kelimutu",
+   "lat": -8.77,
+   "lon": 121.82,
+   "kind": "natural",
+   "desc": "Three crater lakes that change colour, Flores."
+  },
+  {
+   "name": "Raja Ampat",
+   "lat": -0.5,
+   "lon": 130.5,
+   "kind": "natural",
+   "desc": "Highest recorded marine biodiversity on Earth, heart of the Coral Triangle."
+  },
+  {
+   "name": "Tana Toraja",
+   "lat": -3.05,
+   "lon": 119.87,
+   "kind": "cultural",
+   "desc": "Tongkonan houses and cliff burial sites."
+  },
+  {
+   "name": "Monas (National Monument)",
+   "lat": -6.1754,
+   "lon": 106.8272,
+   "kind": "cultural",
+   "desc": "132 m independence monument, Jakarta."
+  },
+  {
+   "name": "Nusantara (IKN)",
+   "lat": -0.97,
+   "lon": 116.7,
+   "kind": "cultural",
+   "desc": "Planned new national capital, under construction in East Kalimantan."
+  },
+  {
+   "name": "Krakatau",
+   "lat": -6.102,
+   "lon": 105.423,
+   "kind": "natural",
+   "desc": "1883 eruption, one of the deadliest in history; Anak Krakatau is still active."
+  },
+  {
+   "name": "Tambora",
+   "lat": -8.25,
+   "lon": 118.0,
+   "kind": "natural",
+   "desc": "1815 eruption, the largest in recorded history; caused the 'Year Without a Summer'."
+  }
+ ],
+ "ports": [
+  {
+   "name": "Tanjung Priok",
+   "city": "Jakarta",
+   "lat": -6.104,
+   "lon": 106.882,
+   "note": "Indonesia's busiest container port"
+  },
+  {
+   "name": "Tanjung Perak",
+   "city": "Surabaya",
+   "lat": -7.199,
+   "lon": 112.733,
+   "note": "Gateway for eastern Indonesia"
+  },
+  {
+   "name": "Belawan",
+   "city": "Medan",
+   "lat": 3.786,
+   "lon": 98.693,
+   "note": "Main port of northern Sumatra"
+  },
+  {
+   "name": "Makassar New Port / Soekarno-Hatta",
+   "city": "Makassar",
+   "lat": -5.112,
+   "lon": 119.405,
+   "note": "Hub for Sulawesi and the east"
+  },
+  {
+   "name": "Tanjung Emas",
+   "city": "Semarang",
+   "lat": -6.947,
+   "lon": 110.422,
+   "note": "Central Java's main port"
+  },
+  {
+   "name": "Batu Ampar",
+   "city": "Batam",
+   "lat": 1.17,
+   "lon": 104.003,
+   "note": "Free-trade-zone port facing Singapore"
+  },
+  {
+   "name": "Kariangau / Semayang",
+   "city": "Balikpapan",
+   "lat": -1.192,
+   "lon": 116.81,
+   "note": "Oil and coal hub of East Kalimantan"
+  },
+  {
+   "name": "Patimban",
+   "city": "Subang",
+   "lat": -6.24,
+   "lon": 107.91,
+   "note": "New deep-sea port east of Jakarta"
+  },
+  {
+   "name": "Kuala Tanjung",
+   "city": "Batubara",
+   "lat": 3.363,
+   "lon": 99.457,
+   "note": "Deep-sea hub port on the Malacca Strait"
+  },
+  {
+   "name": "Boom Baru",
+   "city": "Palembang",
+   "lat": -2.978,
+   "lon": 104.775,
+   "note": "River port on the Musi"
+  },
+  {
+   "name": "Teluk Bayur",
+   "city": "Padang",
+   "lat": -1.0,
+   "lon": 100.37,
+   "note": "West Sumatra's ocean port"
+  },
+  {
+   "name": "Bitung",
+   "city": "Bitung",
+   "lat": 1.44,
+   "lon": 125.19,
+   "note": "International hub port of North Sulawesi"
+  },
+  {
+   "name": "Sorong",
+   "city": "Sorong",
+   "lat": -0.875,
+   "lon": 131.25,
+   "note": "Gateway to Papua and Raja Ampat"
+  },
+  {
+   "name": "Jayapura",
+   "city": "Jayapura",
+   "lat": -2.537,
+   "lon": 140.715,
+   "note": "Main port of Papua"
+  },
+  {
+   "name": "Ambon",
+   "city": "Ambon",
+   "lat": -3.69,
+   "lon": 128.18,
+   "note": "Main port of the Maluku Islands"
+  },
+  {
+   "name": "Tenau",
+   "city": "Kupang",
+   "lat": -10.2,
+   "lon": 123.53,
+   "note": "Main port of East Nusa Tenggara"
+  },
+  {
+   "name": "Dumai",
+   "city": "Dumai",
+   "lat": 1.69,
+   "lon": 101.45,
+   "note": "Palm oil and petroleum export port"
+  },
+  {
+   "name": "Pontianak (Dwikora)",
+   "city": "Pontianak",
+   "lat": -0.02,
+   "lon": 109.34,
+   "note": "River port on the Kapuas"
+  }
+ ]
+}

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nusantara Hex Map</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="map"></canvas>
+
+  <header id="topbar">
+    <button id="home" class="emblem" title="Council of advisors">✦</button>
+    <div class="brand"><h1>Nusantara</h1><div class="sub">Indonesia as a strategy game</div></div>
+    <div id="natstats" class="natstats"></div>
+    <div class="search"><span>🔍</span><input id="search" list="search-list" placeholder="Search cities, provinces, volcanoes…" autocomplete="off"><kbd>/</kbd>
+      <datalist id="search-list"></datalist></div>
+    <button id="almanac-btn" class="top-btn">📜 Almanac</button>
+  </header>
+
+  <aside id="panel"><div id="panel-body"></div></aside>
+  <button id="council-btn" class="pill hidden">👑 Council</button>
+
+  <div id="legend" class="hidden"></div>
+
+  <div id="toolbar">
+    <button id="map-toggle" class="tb-btn">🗺️ Map <span id="map-count" class="badge">6</span></button>
+    <div id="quick-lenses"></div>
+    <button id="lens-toggle" class="tb-btn tb-lens">◉ <span id="lens-current">Terrain</span> ▴</button>
+  </div>
+
+  <div id="lens-chooser" class="popover hidden"></div>
+  <div id="map-menu" class="popover hidden">
+    <h2>Map layers</h2>
+    <label><input type="checkbox" data-layer="borders" checked> Province borders</label>
+    <label><input type="checkbox" data-layer="rivers" checked> Rivers</label>
+    <label><input type="checkbox" data-layer="cities" checked> Cities</label>
+    <label><input type="checkbox" data-layer="resources" checked> Resources</label>
+    <label><input type="checkbox" data-layer="wonders" checked> Wonders</label>
+    <label><input type="checkbox" data-layer="parks"> National parks</label>
+    <label><input type="checkbox" data-layer="yields"> Tile yields</label>
+    <label><input type="checkbox" data-layer="grid"> Hex grid</label>
+    <div class="hint">Drag to pan · scroll or pinch to zoom · click a tile to inspect</div>
+  </div>
+
+  <aside id="inspector" class="hidden">
+    <button id="close-inspector" class="close" aria-label="Close">×</button>
+    <div id="inspector-body"></div>
+  </aside>
+
+  <div id="tooltip" class="hidden"></div>
+  <div id="minimap-wrap"><canvas id="minimap"></canvas></div>
+  <div id="loading">Charting the archipelago…</div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
