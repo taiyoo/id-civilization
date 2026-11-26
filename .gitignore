@@ -3,3 +3,5 @@ video/node_modules/
 video/frames/
 video/music.wav
 video/out/nusantara-trailer.mp4
+__pycache__/
+*.pyc

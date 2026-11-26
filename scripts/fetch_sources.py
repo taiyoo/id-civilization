@@ -69,6 +69,23 @@ SELECT DISTINCT ?item ?itemLabel ?coord ?inception WHERE {
   OPTIONAL { ?item wdt:P571 ?inception . }
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en,id". }
 }""",
+    # Seat (capital town) of every regency, e.g. Timika for Mimika, Labuan Bajo for West Manggarai
+    "wd_towns.json": """
+SELECT ?reg ?regLabel ?item ?itemLabel ?coord ?pop_item ?popdate_item WHERE {
+  ?reg wdt:P31 wd:Q3191695 ; wdt:P36 ?item .
+  ?item wdt:P625 ?coord .
+""" + LATEST_POP.format(v="item") + """
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,id". }
+}""",
+    # Alternative names (e.g. "Solo" for Surakarta) for cities, provincial capitals and regency seats
+    "wd_place_aliases.json": """
+SELECT ?item (GROUP_CONCAT(DISTINCT ?alt; separator="|") AS ?alts) WHERE {
+  { ?item wdt:P31 wd:Q3199141 . }
+  UNION { ?reg wdt:P31 wd:Q3191695 ; wdt:P36 ?item . }
+  UNION { ?prov wdt:P31 wd:Q5098 ; wdt:P36 ?item . }
+  ?item skos:altLabel ?alt .
+  FILTER(LANG(?alt) IN ("en", "id"))
+} GROUP BY ?item""",
     "wd_national_parks.json": """
 SELECT DISTINCT ?item ?itemLabel ?coord ?area WHERE {
   ?item wdt:P31/wdt:P279* wd:Q46169 ; wdt:P17 wd:Q252 ; wdt:P625 ?coord .

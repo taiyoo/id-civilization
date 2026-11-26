@@ -254,6 +254,14 @@ WD_PROVINCE_ALIASES = {
 
 # Wikidata stores these hectare figures as km^2
 PARK_AREA_FIX = {"Mount Gede-Pangrango National Park": 243, "Gunung Maras National Park": 168}
+# Common names people search for that Wikidata may not list as aliases
+CURATED_ALIASES = {
+    "Surakarta": ["Solo"], "Yogyakarta": ["Jogja", "Jogjakarta", "Yogya", "Djokja"], "Makassar": ["Ujung Pandang"],
+    "Jakarta": ["Batavia", "DKI Jakarta"], "Banda Aceh": ["Kutaraja"], "Bau Bau": ["Baubau"], "Jayapura": ["Hollandia"],
+    "Bandung": ["Paris van Java"], "Pangkal Pinang": ["Pangkalpinang"], "Palangka Raya": ["Palangkaraya"],
+    "Lubuk Linggau": ["Lubuklinggau"], "Tanjungpinang": ["Tanjung Pinang"], "Pagar Alam": ["Pagaralam"],
+    "Bekasi": ["Bekasi City"], "Tangerang": ["Tangerang City"],
+}
 CURRENT_CAPITAL = {"Bali": "Denpasar", "North Sulawesi": "Manado", "South Papua": "Merauke"}
 # Wikidata gives the regency rather than the town as capital here
 CAPITAL_FIX = {"Highland Papua": {"name": "Wamena", "lon": 138.951, "lat": -4.093}}
@@ -637,7 +645,9 @@ def main():
         min_d = 2 if c["capital"] else 3
         clash = next((o for o in cities if hex_dist(o["hex"], j) < min_d), None)
         if clash:
-            clash.setdefault("absorbed", []).append({"name": c["name"], "pop": c["pop"]})
+            # merged into a bigger neighbour on the map, but kept (with its own location) for search
+            clash.setdefault("absorbed", []).append({"name": c["name"], "qid": c["qid"], "pop": c["pop"], "popYear": c["popYear"],
+                                                     "lon": c["pt"][0], "lat": c["pt"][1], "hex": j, "province": prov_of[j]})
             continue
         size = max(1, round((c["pop"] or 20000) ** (1 / 3) / 10))
         rec = {"name": c["name"], "qid": c["qid"], "pop": c["pop"], "popYear": c["popYear"],
@@ -647,6 +657,56 @@ def main():
             rec["capitalOf"] = capital_of[c["qid"]]
         cities.append(rec)
         city_hex[j] = rec
+    # ---- towns: regency seats (search only, no banners) + alternative names for every place
+    aliases = defaultdict(list)
+    if (RAW / "wd_place_aliases.json").exists():
+        for b in wd_rows("wd_place_aliases.json"):
+            q = v(b, "item").rsplit("/", 1)[-1]
+            aliases[q] += [a.strip() for a in (v(b, "alts") or "").split("|") if a.strip()]
+    known = {c["qid"] for c in cities} | {a["qid"] for c in cities for a in c.get("absorbed", [])}
+    known_names = {c["name"].lower() for c in cities} | {a["name"].lower() for c in cities for a in c.get("absorbed", [])}
+    towns = []
+    if (RAW / "wd_towns.json").exists():
+        seen = {}
+        for b in wd_rows("wd_towns.json"):
+            q = v(b, "item").rsplit("/", 1)[-1]
+            name = re.sub(r"^(Kota|Kabupaten|Distrik|Kecamatan) ", "", v(b, "itemLabel") or "")
+            pt = wd_point(v(b, "coord"))
+            if not pt or re.fullmatch(r"Q\d+", name) or q in known or name.lower() in known_names:
+                continue
+            t = seen.get(q)
+            if not t:
+                j = idx(*hex_at(*pt))
+                if j < 0:
+                    continue
+                if not land[j]:
+                    near = [k for k in ring_within(j, 2) if land[k]]
+                    if not near:
+                        continue
+                    j = min(near, key=lambda k: hex_dist(j, k))
+                t = seen[q] = {"name": name, "qid": q, "regency": re.sub(r"^(Kabupaten|Kota) ", "", v(b, "regLabel") or ""),
+                               "lon": pt[0], "lat": pt[1], "hex": j, "province": prov_of[j], "pops": {}}
+                towns.append(t)
+            if v(b, "pop_item"):
+                t["pops"][v(b, "popdate_item") or "0"] = float(v(b, "pop_item"))
+        for t in towns:
+            t["pop"], t["popYear"] = latest(t.pop("pops"))
+
+    def alias_list(q, name):
+        out = []
+        for a in CURATED_ALIASES.get(name, []) + aliases.get(q, []):  # curated names first
+            if a.lower() != name.lower() and 2 <= len(a) <= 40 and a not in out:
+                out.append(a)
+        return out[:8]
+
+    for c in cities:
+        c["aliases"] = alias_list(c["qid"], c["name"])
+        for a in c.get("absorbed", []):
+            a["aliases"] = alias_list(a["qid"], a["name"])
+    for t in towns:
+        t["aliases"] = alias_list(t["qid"], t["name"])
+    print(f"towns {len(towns)}, places with aliases {sum(1 for c in cities if c['aliases']) + sum(1 for t in towns if t['aliases'])}")
+
     # city centre tiles are cleared (surrounding farmland/urban comes from MODIS land cover)
     for c in cities:
         j = c["hex"]
@@ -938,6 +998,7 @@ def main():
         "lakes": lake_names,
         "reefs": reef_names,
         "cities": cities,
+        "towns": towns,
         "volcanoes": volcanoes,
         "parks": parks,
         "wonders": wonders,

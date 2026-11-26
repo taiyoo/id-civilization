@@ -367,7 +367,7 @@ function hideTip() { tip().classList.add("hidden"); }
 // ------------------------------------------------------------------ inspector
 const row = (k, v) => `<div class="insp-row"><span>${k}</span><span>${v}</span></div>`;
 const wd = (q, text) => (q ? `<a href="https://www.wikidata.org/wiki/${q}" target="_blank" rel="noopener">${esc(text)}</a>` : esc(text));
-function inspect(i) {
+function inspect(i, place = null) {
   state.sel = i;
   map.setSelected(i);
   scheduleHash();
@@ -376,16 +376,26 @@ function inspect(i) {
   const S = D.tiles, [lon, lat] = map.hexLonLat(i), t = map.terrainName(i), f = map.featureName(i);
   const p = S.prov[i] >= 0 ? D.provinces[S.prov[i]] : null, ps = p?.stats || {};
   const city = map.cityAt.get(i), wonder = map.wonderAt.get(i), volc = map.volcanoAt.get(i), lv = lensValue(i);
-  const title = city ? city.name : wonder ? (wonder.short || wonder.name) : volc ? volc.name : S.lake[i] >= 0 ? D.lakes[S.lake[i]] : PRETTY[t];
+  const title = place ? place.name : city ? city.name : wonder ? (wonder.short || wonder.name) : volc ? volc.name : S.lake[i] >= 0 ? D.lakes[S.lake[i]] : PRETTY[t];
   const y = map.yields(i);
   let h = `<div class="insp-title">${esc(title)}</div><div class="insp-sub">${lat.toFixed(2)}°, ${lon.toFixed(2)}°${S.reg[i] >= 0 ? ` · ${esc(D.regencies[S.reg[i]])}` : ""}</div>`;
   h += `<div class="yields"><span class="y-food">🌾 ${y[0]}</span><span class="y-prod">⚒ ${y[1]}</span><span class="y-gold">🪙 ${y[2]}</span></div>`;
   if (lv) h += `<div class="insp-lens" style="border-color:${lv.l.categorical ? lv.l.color(lv.v) : lv.l.color(lv.v)}">${lv.l.icon} ${esc(lv.l.name)} <b>${esc(lv.text)}</b></div>`;
-  if (city) {
-    h += `<div class="insp-section"><h3>City</h3>${row("Population", `${fmtNum(city.pop)}${city.popYear ? ` (${city.popYear})` : ""}`)}${row("City size", city.size)}`;
+  if (place) {
+    h += `<div class="insp-section"><h3>${esc(place.kind)}</h3>`;
+    if (place.pop) h += row("Population", `${fmtNum(place.pop)}${place.popYear ? ` (${place.popYear})` : ""}`);
+    if (place.regency) h += row("Seat of", `${esc(place.regency)} regency`);
+    if (place.parent) h += row("On the map", `shown with ${esc(place.parent)}`);
+    // show real alternative names only; administrative variants ("Kota X", "X City") still help search
+    const aka = (place.aliases || []).filter((a) => !/\b(kota|kotamadya|kotapraja|city|municipality|regency|kabupaten|tingkat)\b/i.test(a));
+    if (aka.length) h += row("Also known as", esc(aka.slice(0, 3).join(", ")));
+    h += row("Wikidata", wd(place.qid, place.qid)) + `</div>`;
+  }
+  if (city && (!place || place.parent)) {
+    h += `<div class="insp-section"><h3>${place ? "Nearby city" : "City"}</h3>${place ? row("Name", esc(city.name)) : ""}${row("Population", `${fmtNum(city.pop)}${city.popYear ? ` (${city.popYear})` : ""}`)}${row("City size", city.size)}`;
     if (city.capital === "national") h += row("Status", "★ National capital");
     if (city.capitalOf) h += row("Capital of", esc(city.capitalOf));
-    if (city.absorbed?.length) h += row("Also nearby", city.absorbed.map((a) => esc(a.name)).join(", "));
+    if (city.absorbed?.length && !place) h += row("Also nearby", city.absorbed.map((a) => esc(a.name)).join(", "));
     h += row("Wikidata", wd(city.qid, city.qid)) + `</div>`;
   }
   h += `<div class="insp-section"><h3>Tile</h3>${row("Terrain", PRETTY[t])}${f ? row("Feature", PRETTY[f]) : ""}`;
@@ -433,34 +443,102 @@ function inspect(i) {
 }
 
 // ------------------------------------------------------------------ search
-function setupSearch() {
-  const entries = [];
-  D.cities.forEach((c) => entries.push({ label: `${c.name} (city)`, hex: c.hex }));
-  D.provinces.forEach((p, k) => entries.push({ label: `${p.name} (province)`, prov: k }));
-  D.wonders.forEach((w) => entries.push({ label: `${w.short || w.name} (wonder)`, hex: w.hex }));
-  D.volcanoes.forEach((v) => entries.push({ label: `${v.name} (volcano)`, hex: v.hex }));
-  D.airports.filter((a) => a.pax).forEach((a) => entries.push({ label: `${a.name} ${a.iata} (airport)`, hex: a.hex }));
-  D.plants.forEach((p) => entries.push({ label: `${p.name} (${p.fuel.toLowerCase()} plant)`, hex: p.hex }));
-  $("search-list").innerHTML = entries.map((e) => `<option value="${esc(e.label)}"></option>`).join("");
-  const input = $("search");
-  const go = () => {
-    const q = input.value.trim().toLowerCase();
-    if (!q) return;
-    const hit = entries.find((e) => e.label.toLowerCase() === q) || entries.find((e) => e.label.toLowerCase().startsWith(q)) || entries.find((e) => e.label.toLowerCase().includes(q));
-    if (!hit) return;
-    if (hit.prov != null) {
-      const cap = D.cities.find((c) => c.capitalOf === D.provinces[hit.prov].name);
-      const i = cap ? cap.hex : D.tiles.prov.indexOf(hit.prov);
-      const [lon, lat] = map.hexLonLat(i);
-      map.flyTo(lon, lat, 70, panelWidth() / 2); map.setHighlight({ provs: [hit.prov] }); inspect(i);
-    } else {
-      const [lon, lat] = map.hexLonLat(hit.hex);
-      map.flyTo(lon, lat, 170, panelWidth() / 2); inspect(hit.hex);
+// ------------------------------------------------------------------ search
+const norm = (s) => String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[-–'’.,()/]+/g, " ").replace(/\s+/g, " ").trim();
+const KIND_RANK = { city: 0, town: 1, province: 2, wonder: 3, volcano: 4, airport: 5, plant: 6 };
+let SEARCH = [];
+
+function buildSearchIndex() {
+  const E = [];
+  const add = (e) => { e.keys = [e.name, ...(e.aliases || [])].map(norm).filter(Boolean); e.compact = e.keys.map((k) => k.replace(/ /g, "")); E.push(e); };
+  const short = (p) => (p || "").replace(" Special Capital Region", "").replace("Special Region of ", "");
+  for (const c of D.cities) {
+    add({ kind: "city", name: c.name, aliases: c.aliases, hex: c.hex, lon: c.lon, lat: c.lat, pop: c.pop,
+      sub: [c.capital === "national" ? "National capital" : c.capitalOf ? `Capital of ${short(c.capitalOf)}` : short(c.province), c.pop ? `${fmtBig(c.pop)} people` : ""].filter(Boolean).join(" · ") });
+    for (const a of c.absorbed || []) {
+      if (a.lon == null) continue;
+      add({ kind: "city", name: a.name, aliases: a.aliases, hex: a.hex, lon: a.lon, lat: a.lat, pop: a.pop, parent: c.name, place: { ...a, kind: "City", parent: c.name },
+        sub: [short(a.province), `shown with ${c.name} on the map`, a.pop ? `${fmtBig(a.pop)} people` : ""].filter(Boolean).join(" · ") });
     }
-    input.blur();
+  }
+  for (const t of D.towns || []) {
+    add({ kind: "town", name: t.name, aliases: [...(t.aliases || []), t.regency], hex: t.hex, lon: t.lon, lat: t.lat, pop: t.pop, place: { ...t, kind: "Town" },
+      sub: [`Seat of ${t.regency}`, short(t.province)].filter(Boolean).join(" · ") });
+  }
+  D.provinces.forEach((p, k) => add({ kind: "province", name: p.name, aliases: [short(p.name)], prov: k, pop: p.pop, sub: `${p.island} · capital ${p.capital || "–"}` }));
+  for (const w of D.wonders) add({ kind: "wonder", name: w.short || w.name, aliases: [w.name, ...(w.alsoHere || [])], hex: w.hex, lon: w.lon, lat: w.lat, sub: w.unesco ? "UNESCO World Heritage" : "Wonder" });
+  for (const v of D.volcanoes) add({ kind: "volcano", name: v.name, hex: v.hex, lon: v.lon, lat: v.lat, sub: v.elev ? `${fmtNum(v.elev)} m` : "" });
+  for (const a of D.airports) add({ kind: "airport", name: a.name, aliases: [a.iata, a.city], hex: a.hex, lon: a.lon, lat: a.lat, sub: `${a.iata}${a.pax ? ` · ${fmtBig(a.pax)} passengers` : ""}` });
+  for (const p of D.plants) add({ kind: "plant", name: p.name, hex: p.hex, lon: p.lon, lat: p.lat, sub: `${p.fuel} power plant · ${fmtNum(p.mw)} MW` });
+  SEARCH = E;
+}
+
+function searchPlaces(q, limit = 8) {
+  q = norm(q);
+  if (!q) return [];
+  const qc = q.replace(/ /g, "");
+  const out = [];
+  for (const e of SEARCH) {
+    let best = 0, via = null;
+    e.keys.forEach((k, n) => {
+      let sc = 0;
+      if (k === q || e.compact[n] === qc) sc = 100;
+      else if (k.startsWith(q) || e.compact[n].startsWith(qc)) sc = 80;
+      else if (k.split(" ").some((w) => w.startsWith(q))) sc = 60;
+      else if (q.length >= 3 && k.includes(q)) sc = 35;
+      if (n > 0) sc -= 3; // a little below matches on the main name
+      if (sc > best) { best = sc; via = n > 0 ? (e.aliases || [])[n - 1] : null; }
+    });
+    if (!best) continue;
+    const score = best - 4 * KIND_RANK[e.kind] + (e.pop ? Math.log10(e.pop) / 2 : 0);
+    out.push({ e, score, via });
+  }
+  return out.sort((a, b) => b.score - a.score).slice(0, limit);
+}
+
+function setupSearch() {
+  buildSearchIndex();
+  const input = $("search"), box = $("search-results");
+  let results = [], active = 0;
+  const close = () => { box.classList.add("hidden"); input.setAttribute("aria-expanded", "false"); };
+  const render = () => {
+    const q = input.value.trim();
+    if (!q) return close();
+    results = searchPlaces(q);
+    active = 0;
+    box.innerHTML = results.length
+      ? results.map((r, k) => `<div class="sr-item${k === active ? " on" : ""}" role="option" data-k="${k}">
+          <span class="sr-name">${esc(r.e.name)}${r.via && norm(r.via) !== norm(r.e.name) ? ` <small>“${esc(r.via)}”</small>` : ""}</span>
+          <span class="sr-kind">${r.e.kind}</span><span class="sr-sub">${esc(r.e.sub || "")}</span></div>`).join("")
+      : `<div class="sr-empty">No places match “${esc(q)}”. Try a city, town, province, volcano or airport.</div>`;
+    box.classList.remove("hidden"); input.setAttribute("aria-expanded", "true");
   };
-  input.addEventListener("change", go);
-  input.addEventListener("keydown", (e) => { if (e.key === "Enter") go(); });
+  const highlight = () => box.querySelectorAll(".sr-item").forEach((el, k) => el.classList.toggle("on", k === active));
+  const pick = (r) => {
+    if (!r) return;
+    const e = r.e;
+    close(); input.value = e.name; input.blur();
+    if (e.prov != null) {
+      const cap = D.cities.find((c) => c.capitalOf === D.provinces[e.prov].name);
+      const i = cap ? cap.hex : D.tiles.prov.indexOf(e.prov);
+      const [lon, lat] = map.hexLonLat(i);
+      map.flyTo(lon, lat, 70, panelWidth() / 2); map.setHighlight({ provs: [e.prov] }); inspect(i);
+      return;
+    }
+    map.flyTo(e.lon ?? map.hexLonLat(e.hex)[0], e.lat ?? map.hexLonLat(e.hex)[1], 170, panelWidth() / 2);
+    map.setHighlight(e.place ? { points: [{ lon: e.lon, lat: e.lat }] } : null);
+    inspect(e.hex, e.place);
+  };
+  input.addEventListener("input", render);
+  input.addEventListener("focus", () => { if (input.value.trim()) render(); });
+  input.addEventListener("keydown", (ev) => {
+    if (ev.key === "ArrowDown" && results.length) { ev.preventDefault(); active = (active + 1) % results.length; highlight(); }
+    else if (ev.key === "ArrowUp" && results.length) { ev.preventDefault(); active = (active - 1 + results.length) % results.length; highlight(); }
+    else if (ev.key === "Enter") { ev.preventDefault(); if (box.classList.contains("hidden")) render(); pick(results[active]); }
+    else if (ev.key === "Escape") { close(); input.blur(); }
+  });
+  box.addEventListener("mousedown", (ev) => { const el = ev.target.closest("[data-k]"); if (el) { ev.preventDefault(); pick(results[Number(el.dataset.k)]); } });
+  input.addEventListener("blur", () => setTimeout(close, 120));
   $("close-inspector").onclick = () => inspect(-1);
 }
 
