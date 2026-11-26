@@ -1,0 +1,21 @@
+# Cloudflare Pages response headers (https://developers.cloudflare.com/pages/configuration/headers/)
+# Cloudflare compresses responses itself. Filenames aren't content-hashed, so assets get a short
+# cache plus stale-while-revalidate: repeat visits are instant and a redeploy shows up within ~1 hour.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+
+# The page itself always revalidates, so new deploys are picked up immediately
+/
+  Cache-Control: public, max-age=0, must-revalidate
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/js/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+/style.css
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+/map-data.json
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
