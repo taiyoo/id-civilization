@@ -33,7 +33,7 @@ async function boot() {
   LENSES = buildLenses(D);
   LENS_BY_ID = new Map(LENSES.map((l) => [l.id, l]));
   ADV = buildAdvisors(D, { centroid });
-  window.__map = { D, map, LENSES, ADV }; // console debugging
+  window.__map = { D, map, LENSES, ADV, setLens, openAdvisor, inspect, markHot }; // console debugging + video capture
 
   state = { lens: "terrain", advisor: "council", sel: -1 };
   readHash();
