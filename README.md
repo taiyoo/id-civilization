@@ -54,6 +54,16 @@ The view (lens, position, advisor and selected tile) is stored in the URL hash, 
 - **Crops:** rice and palm-oil resources are only placed on hexes where MODIS sees farmland.
 - **Cities, volcanoes, wonders, parks, rivers and lakes** come from Wikidata, OpenStreetMap and Natural Earth. Mines, fields and ports are hand-curated in `data/curated/resources.json`.
 
+## Trailer
+
+`video/` renders a 60-second 1080p trailer from the real app. Headless Chrome drives the camera, lenses and advisors frame by frame, and `music.py` synthesises a gamelan-style soundtrack, so no stock footage or music is used.
+
+```bash
+./video/build.sh   # needs Google Chrome, ffmpeg, Node and Python with numpy
+```
+
+It writes `video/out/nusantara-trailer.mp4`, a 22 MB web cut `nusantara-trailer-web.mp4` (made with `ffmpeg -crf 25`), and a poster image. The shot list and captions are in `video/capture.mjs`; set `TRAILER_URL` to change the link on the end card.
+
 ## Read with care
 - MODIS counts tree plantations as forest, so its 62% forest share is higher than the government's ~51% figure.
 - Poverty and Gini (World Bank 2022) predate the Papua split; the four new Papua provinces inherit their parent's values. They do the same for religion when their own article has none. Jakarta and East Kalimantan have no religion shares in their infoboxes.
